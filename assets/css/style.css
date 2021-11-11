@@ -1,3 +1,6 @@
 .hide {
     display: none;
 }
+.timer {
+    align-items: right;
+}

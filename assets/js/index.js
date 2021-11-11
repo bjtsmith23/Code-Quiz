@@ -23,9 +23,6 @@ var questions = [
     },
 ]
 
-console.log(questions[1].text);
-console.log(questions[0].answer);
-
 for (var i = 0; i < questions.length; i++) {
     console.log(questions[i].text);
     console.log(questions[i].choices);
@@ -33,16 +30,33 @@ for (var i = 0; i < questions.length; i++) {
 }
 
 var quizQuestionsIndex = 0;
+var timerId;
+var timeCount = questions.length * 7;
 
-
+// HTML elements
 var startScreenEl = document.getElementById("start-screen");
 var startBtn = document.getElementById("start");
+var questionsEl = document.getElementById('questions');
+var timerEl = document.getElementById('time');
 
+// ============
+// MAIN PROCESS
+// ============
 
 function startQuiz() {
     startScreenEl.setAttribute("class", "hide");
-    displayQuestion();
+    questionsEl.setAttribute("class", "show");
+    
+    timerId = setInterval( countdown, 1000);
 };
+
+function countdown()
+    timeCount--;
+    timerEl.textContent = timeCount; 
+    if (!timeCount) {
+        console.log("time is up");
+        clearInterval(timerId);
+    }
 
 function displayQuestion() {
     var displayQuestionEl = document.getElementById("question-text");
@@ -94,19 +108,27 @@ function checkForAnswer() {
 // var curTimeEl = document.getElementById("current-time");
 
 // setInterval(now, 1000);
+
+
+
 var timeLeft = 30;
-
-function timeLeft() {
-    
+    var time = document.getElementById('time');
+    var timerId = setInterval(countdown, 1000);
     time--;
-    timerEl.textContent = time
-}
-
-
-
+    
+    function countdown() {
+      if (timeLeft == -1) {
+        clearTimeout(timerId);
+        endQuiz();
+      } else {
+        elem.innerHTML = timeLeft + ' seconds remaining';
+        timeLeft--;
+      }
+    }
 
 
 
 
 startBtn.addEventListener("click", startQuiz);
+startBtn.addEventListener("click", countdown);
 
