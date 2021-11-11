@@ -2,24 +2,24 @@
 // Global variable for applicatoin state
 var questions = [
     {
-        text: "My code quiz question 1",
-        choices: ["user choice 1", 'user choice 2', "userchoice 3", "user's final choice"],
-        answer: "user choice 1"
+        text: "What is the highest grossing movie of all time?",
+        choices: ["Titanic", 'Avatar', "Wizard of Oz", "National Treasure"],
+        answer: "Titanic"
     },
     {
-        text: "My code quiz question 2",
-        choices: ["user choice 1", 'user choice 2', "userchoice 3", "user's final choice"],
-        answer: 'user choice 2'
+        text: "Which one of these movies have not won an Oscar for best picture?",
+        choices: ["Snow Dogs", '', "userchoice 3", "user's final choice"],
+        answer: 'user choice 3'
     },
     {
         text: "My code quiz question 3",
         choices: ["user choice 1", 'user choice 2', "userchoice 3", "user's final choice"],
-        answer: "user choice 1"
+        answer: "user choice 4"
     },
     {
         text: "question four",
         choices: ["user choice 1", 'user choice 2', "userchoice 3", "user's final choice"],
-        answer: "user choice 1"
+        answer: "user choice 3"
     },
 ]
 
@@ -32,7 +32,7 @@ for (var i = 0; i < questions.length; i++) {
     console.log(questions[i].answer);
 }
 
-var quizQuestionsIndex = 3;
+var quizQuestionsIndex = 0;
 
 
 var startScreenEl = document.getElementById("start-screen");
@@ -83,6 +83,23 @@ function checkForAnswer() {
     else {
             console.log("incorrect");
         }
+}
+
+
+//    function now () {
+//     var today = moment();
+// $("#current-time").text(today.format("MMM Do, YYYY, h:mm:ss a"));
+// };
+
+// var curTimeEl = document.getElementById("current-time");
+
+// setInterval(now, 1000);
+var timeLeft = 30;
+
+function timeLeft() {
+    
+    time--;
+    timerEl.textContent = time
 }
 
 
