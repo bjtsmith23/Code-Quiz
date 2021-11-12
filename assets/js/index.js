@@ -1,33 +1,29 @@
+// ===========
 // DATA
+// ===========
 // Global variable for applicatoin state
 var questions = [
     {
-        text: "What is the highest grossing movie of all time?",
-        choices: ["Titanic", 'Avatar', "Wizard of Oz", "National Treasure"],
-        answer: "Titanic"
+        text: "My code quiz question 1",
+        choices: ["user choice 1", 'user choice 2', "userchoice 3", "user's final choice"],
+        answer: "user choice 1"
     },
     {
-        text: "Which one of these movies have not won an Oscar for best picture?",
-        choices: ["Snow Dogs", '', "userchoice 3", "user's final choice"],
-        answer: 'user choice 3'
+        text: "My code quiz question 2",
+        choices: ["user choice 1", 'user choice 2', "userchoice 3", "user's final choice"],
+        answer: 'user choice 2'
     },
     {
         text: "My code quiz question 3",
         choices: ["user choice 1", 'user choice 2', "userchoice 3", "user's final choice"],
-        answer: "user choice 4"
+        answer: "user choice 1"
     },
     {
-        text: "question four",
+        text: "My code quiz question 4",
         choices: ["user choice 1", 'user choice 2', "userchoice 3", "user's final choice"],
-        answer: "user choice 3"
+        answer: "user choice 1"
     },
 ]
-
-for (var i = 0; i < questions.length; i++) {
-    console.log(questions[i].text);
-    console.log(questions[i].choices);
-    console.log(questions[i].answer);
-}
 
 var quizQuestionsIndex = 0;
 var timerId;
@@ -36,21 +32,37 @@ var timeCount = questions.length * 7;
 // HTML elements
 var startScreenEl = document.getElementById("start-screen");
 var startBtn = document.getElementById("start");
-var questionsEl = document.getElementById('questions');
-var timerEl = document.getElementById('time');
+var questionsEl = document.getElementById("questions");
+var timerEl = document.getElementById("time");
 var questionTextEl = document.getElementById("question-text");
-var questionChoicesEl = document.getElementById("choices");
 
-// ============
+// Choices element
+var choicesEl = document.getElementById("choices");
+
+// feedback element
+var feedbackEl = document.getElementById("feedback");
+
+// end screen element
+var endScreenEl = document.getElementById("end-screen");
+
+// initials input element 
+var initialsInputEl = document.getElementById("initials");
+
+// initials submit button
+var initialsSubmitBtn = document.getElementById("submit");
+
+
+
+
+
+
+// =============
 // MAIN PROCESS
-// ============
-
+// =============
 function startQuiz() {
     startScreenEl.setAttribute("class", "hide");
     questionsEl.setAttribute("class", "show");
-    
-    
-    // Start Timer
+    // Start timer
     timerId = setInterval(handleTicks, 1000);
 
     // Ask questions
@@ -58,105 +70,61 @@ function startQuiz() {
 };
 
 function askQuestions() {
-    var currentQuestion = questions[quizQuestionsIndex];
-    var questionTitle= currentQuestion.text
-    var questionChoices = currentQuestion.choices;
-
+    var currentQuestionObj = questions[quizQuestionsIndex];
+    var questionText = currentQuestionObj.text;
     // Display question text
-    questionTextEl.textContent = questionTitle;
+    questionTextEl.textContent = questionText;
+    // ?? Display choices
+    choicesEl.innerHTML = '';
+    choicesEl.textContent = '';
+};
 
-    //  ?? Display choices
-
-    questionChoicesEl.textContent = questionChoices;
-
-    
-
-    
-    // Increment Index for the next question
-    quizQuestionsIndex++
-}
-
-
-function displayQuestion() {
-    var displayQuestionEl = document.getElementById("question-text");
-    var choicesEl = document.getElementById("choices");
-    var button1 = document.createElement("button");
-    var button2 = document.createElement("button");
-    var button3= document.createElement("button");
-    var button4 = document.createElement("button");
+    // create a loop
+    var choicesArr = currentQuestionObj.choices;
+    for (var i = 0; i < choicesArr.length; i++) {
+        // creat li element
+        var liEL = document.createElement("li");
+        // on each list item add a value attribute to hold the choice
+        console.log()
+        liEL.setAttribute('value', choicesArr[i]);
+        liEL.textContent = choicesArr[i];
+        choicesEl.appendChild(liEL);
+    };
 
 
-    button1.textContent = questions[0].choices[0];
-    button2.textContent = questions[0].choices[1];
-    button3.textContent = questions[0].choices[2];
-    button4.textContent = questions[0].choices[3];
-
-    displayQuestionEl.textContent = questions[0].text;
-   
-   button1.addEventListener("click", checkForAnswer)
-   button2.addEventListener("click", checkForAnswer)
-   button3.addEventListener("click", checkForAnswer)
-   button4.addEventListener("click", checkForAnswer)
-   
+    // Increment index for the next questio
 
 
+    function handleTicks() {
+        // Decement time count
+        timeCount--;
+        // Display time count
+        timerEl.textContent = timeCount;
+        // Check time count if it reaches 0
+        // if timed out, quiz ends
+        if (!timeCount) {
+            console.log("Time is up");
+            clearInterval(timerId);
+            // ?? quizEnd
+        };
+    };
 
-    choicesEl.appendChild(button1);
-    choicesEl.appendChild(button2);
-    choicesEl.appendChild(button3);
-    choicesEl.appendChild(button4);  
-}
-
-function checkForAnswer() {
-    var correctAnswer = questions[0].answer
-    console.log(this.innerHTML);
-    if (this.innerHTML === correctAnswer) {
-        console.log("correct");
-    }
-    else {
-            console.log("incorrect");
+    function handleChoices(event) {
+        var choiceValue = event.target.getAttribute('value');
+        console.log(choiceValue);
+        if (choiceValue === questions[quizQuestionsIndex].answer) {
+            feedbackEl.textContent = "Correct!";
         }
-}
-
-
-//    function now () {
-//     var today = moment();
-// $("#current-time").text(today.format("MMM Do, YYYY, h:mm:ss a"));
-// };
-
-// var curTimeEl = document.getElementById("current-time");
-
-// setInterval(now, 1000);
-
-
-
-function handleTicks() {
-    // Decement time count
-    timeCount--;
-    // Display time count
-    timerEl.textContent = timeCount;
-    // Check time count if it reaches 0
-    // if timed out, quiz ends
-    if (!timeCount) {
-        console.log("Time is up");
-        clearInterval(timerId);
-        // ?? quizEnd
+        else {
+            // timeCount = timeCount - 5
+            timeCount -= 5 ;
+            if (timeCount < 0)
+                timeCount = 0; 
+            }
+            timerEl.textContent = timeCount;
     }
-}
 
-startBtn.addEventListener("click", startQuiz);
+    startBtn.addEventListener("click", startQuiz);
 
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
+    // add enent listener to choices
+    choicesEl.onclick = handleChoices;
