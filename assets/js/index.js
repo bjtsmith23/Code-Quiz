@@ -38,6 +38,8 @@ var startScreenEl = document.getElementById("start-screen");
 var startBtn = document.getElementById("start");
 var questionsEl = document.getElementById('questions');
 var timerEl = document.getElementById('time');
+var questionTextEl = document.getElementById("question-text");
+var questionChoicesEl = document.getElementById("choices");
 
 // ============
 // MAIN PROCESS
@@ -47,16 +49,33 @@ function startQuiz() {
     startScreenEl.setAttribute("class", "hide");
     questionsEl.setAttribute("class", "show");
     
-    timerId = setInterval( countdown, 1000);
+    
+    // Start Timer
+    timerId = setInterval(handleTicks, 1000);
+
+    // Ask questions
+    askQuestions();
 };
 
-function countdown()
-    timeCount--;
-    timerEl.textContent = timeCount; 
-    if (!timeCount) {
-        console.log("time is up");
-        clearInterval(timerId);
-    }
+function askQuestions() {
+    var currentQuestion = questions[quizQuestionsIndex];
+    var questionTitle= currentQuestion.text
+    var questionChoices = currentQuestion.choices;
+
+    // Display question text
+    questionTextEl.textContent = questionTitle;
+
+    //  ?? Display choices
+
+    questionChoicesEl.textContent = questionChoices;
+
+    
+
+    
+    // Increment Index for the next question
+    quizQuestionsIndex++
+}
+
 
 function displayQuestion() {
     var displayQuestionEl = document.getElementById("question-text");
@@ -111,24 +130,33 @@ function checkForAnswer() {
 
 
 
-var timeLeft = 30;
-    var time = document.getElementById('time');
-    var timerId = setInterval(countdown, 1000);
-    time--;
-    
-    function countdown() {
-      if (timeLeft == -1) {
-        clearTimeout(timerId);
-        endQuiz();
-      } else {
-        elem.innerHTML = timeLeft + ' seconds remaining';
-        timeLeft--;
-      }
+function handleTicks() {
+    // Decement time count
+    timeCount--;
+    // Display time count
+    timerEl.textContent = timeCount;
+    // Check time count if it reaches 0
+    // if timed out, quiz ends
+    if (!timeCount) {
+        console.log("Time is up");
+        clearInterval(timerId);
+        // ?? quizEnd
     }
-
-
-
+}
 
 startBtn.addEventListener("click", startQuiz);
-startBtn.addEventListener("click", countdown);
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
 
