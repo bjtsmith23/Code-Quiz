@@ -1,41 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <title>Document</title>
-</head>
-<body>
-    <div class="scores"><a href="hightscores.htnl">View High Scores</a></div>
-    <div class="timer">Time: <span id="time">0</span></div>
-
-    <div class="start" id="start-screen">
-        <h1>Coding Quiz Challenge</h1>
-        <p>Try to answer the following subject questions within the time limit.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>World Capital Quiz</title>
+  </head>
+  <body>
+    <nav>
+        <div class="timer">Time: <span id="time">0</span></div>
+      
+      
+    </nav>
+    <section>
+      <div class="start" id="start-screen">
+        <h1>World Capital Quiz</h1>
+        <p>
+          Try to answer the following subject questions within the time limit.
+        </p>
         <button id="start">Start Quiz</button>
-    </div>
+      </div>
 
-    <div class="hide" id="questions">
+      <div class="hide" id="questions">
         <h2 id="question-text"></h2>
         <div id="choices" class="choices"></div>
-    </div>
+      </div>
 
-    <div class="hide" id="end-screen">
-        <h2>All Done!</h2>
+      <div class="hide" id="end-screen">
+        <h2>Time is up!!!</h2>
         <p>Your final scores is <span id="final-score"></span></p>
         <p>
-            Enter initals: <input type="text" id="initials" max="3">
-            <button id="submit">Submit</button>
+          Enter initals: <input type="text" id="initials" max="3" />
+          <button id="submit">Submit</button>
         </p>
-    </div>
+      </div>
 
-    <div id="feedback" class="feedback hide">
-    </div>
-
-    <script src="./assets/js/index.js">
-
-    </script>
-</body>
+      
+      <div id="feedback" class="feedback hide"></div>
+      
+      
+    </section>
+    <div class="highscores"><a href="highscores.html"><button>View High Scores</button></a></div>
+    <script src="./assets/js/index.js"></script>
+  </body>
 </html>
