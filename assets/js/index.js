@@ -25,7 +25,7 @@ var questions = [
     },
 ]
 
-var TIME_PER_QUESTION = 20;
+var TIME_PER_QUESTION = 10;
 var quizQuestionsIndex = 0;
 var timerId;
 var timeCount = questions.length * TIME_PER_QUESTION;
